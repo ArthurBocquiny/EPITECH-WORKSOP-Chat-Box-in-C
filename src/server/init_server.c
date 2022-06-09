@@ -15,9 +15,15 @@ server_t *init_server(char *ip_addr, int port)
     server->port = port;
 
     // init socket
+    server->socket = socket(AF_INET, SOCK_STREAM, 0);
     // init server addr
+    server->addr.sin_family = AF_INET;
+    server->addr.sin_addr.s_addr = htonl(ip_addr);
+    server->addr.sin_port = htons(port);
     // bind
+    bind(server->socket, (struct sockaddr*)&server->addr, sizeof(server->addr));
     // listen
-
+    if (listen(server->socket, SOMAXCONN) == -1)
+        exit(84);
     return server;
 }

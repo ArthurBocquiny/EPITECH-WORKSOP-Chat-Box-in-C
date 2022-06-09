@@ -20,6 +20,14 @@
 #include <netdb.h>
 #include <stdio.h>
 
+
+typedef struct s_client
+{
+    char *id;
+    char *username;
+    int status;
+} cli;
+
 typedef struct server_s {
     struct sockaddr_in addr;
     struct timeval timeout;
